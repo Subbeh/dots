@@ -1,5 +1,5 @@
 {{- if eq .chezmoi.os "darwin" -}}
-sourceDir = "/Users/{{- .chezmoi.username }}/workspace/dotfiles"
+sourceDir = "/Users/{{- .chezmoi.username }}/workspace/chezmoi"
 {{- else if eq .chezmoi.os "linux" -}}
-sourceDir = "/data/workspace/dotfiles"
+sourceDir = "/data/workspace/chezmoi"
 {{- end -}}
