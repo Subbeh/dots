@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Import SSH keys from Bitwarden
+
+set -euo pipefail
+
+SSH_DIR="{{ .chezmoi.homeDir }}/.ssh"
+mkdir -p "$SSH_DIR"
+chmod 700 "$SSH_DIR"
+
+echo "==> Importing SSH keys..."
+
+{{ range .sshKeys -}}
+if [[ ! -f "$SSH_DIR/id_{{ . }}" ]]; then
+  cat > "$SSH_DIR/id_{{ . }}" << 'EOF'
+{{ (bitwarden "item" .).sshKey.privateKey }}
+EOF
+  chmod 600 "$SSH_DIR/id_{{ . }}"
+fi
+
+if [[ ! -f "$SSH_DIR/id_{{ . }}.pub" ]]; then
+  cat > "$SSH_DIR/id_{{ . }}.pub" << 'EOF'
+{{ (bitwarden "item" .).sshKey.publicKey }}
+EOF
+  chmod 644 "$SSH_DIR/id_{{ . }}.pub"
+fi
+
+{{ end -}}
+echo "==> SSH keys imported"

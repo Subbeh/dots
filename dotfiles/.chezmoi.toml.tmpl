@@ -50,6 +50,11 @@ encryption = "age"
   profile      = {{ $profile | quote }}
   workspaceDir = {{ $workspaceDir | quote }}
   email        = {{ $email | quote }}
+  {{- if eq $profile "personal" }}
+  sshKeys      = ["laptop-personal-ssh-key", "github-ssh-key"]
+  {{- else if eq $profile "work" }}
+  sshKeys      = ["laptop-work-ssh-key", "github-ssh-key"]
+  {{- end }}
   {{- if eq .chezmoi.os "darwin" }}
   homebrewPrefix = "/opt/homebrew"
   {{- end }}
