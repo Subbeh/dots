@@ -1,40 +1,27 @@
 #!/usr/bin/env bash
-# Import GPG keys from Bitwarden attachments
+# Import GPG keys from Bitwarden (provided via scriptEnv as base64)
 
 set -euo pipefail
 
-echo "==> Setting up GPG keys..."
+echo "==> Importing GPG keys..."
 
-BW_SESSION_FILE="{{ .chezmoi.homeDir }}/.config/chezmoi/.bw-session"
-BW_SESSION="$(cat "$BW_SESSION_FILE")"
-export BW_SESSION
-
-item_id="$(bw list items --search gpg | jq -r '.[] | select(.name=="gpg") | .id')"
-
-if [[ -z "$item_id" ]]; then
-  echo "ERROR: Could not find 'gpg' item in Bitwarden" >&2
-  exit 1
-fi
-
-# Ensure gpg-agent is running and reachable in this non-interactive context
 export GPG_TTY="$(tty 2>/dev/null || true)"
 gpgconf --launch gpg-agent
 
-import_attachment() {
-  local filename="$1"
-  echo "==> Importing $filename..."
-  bw get attachment "$filename" --itemid "$item_id" --raw \
-    | gpg --batch --no-tty --import 2>&1 \
-    | grep -v "^gpg: key.*: already in secret keyring" || true
-}
+echo "==> Importing {{ .email }}.priv.asc..."
+echo "$GPG_KEY_PRIV" | base64 -d | gpg --batch --no-tty --import 2>&1 \
+  | grep -v "^gpg: key.*: already in secret keyring" || true
 
-import_attachment "{{ .email }}.priv.asc"
-import_attachment "{{ .email }}.pub.asc"
-import_attachment "{{ .email }}.sub_priv.asc"
+echo "==> Importing {{ .email }}.pub.asc..."
+echo "$GPG_KEY_PUB" | base64 -d | gpg --batch --no-tty --import 2>&1 \
+  | grep -v "^gpg: key.*: already in secret keyring" || true
 
-# Set ultimate trust so gpg-agent doesn't prompt during encrypt
-gpg --batch --no-tty --import-ownertrust <<EOF
-$(gpg --batch --no-tty --list-keys --with-colons {{ .email | quote }} | awk -F: '$1=="fpr"{print $10":6:"}' | head -1)
-EOF
+echo "==> Importing {{ .email }}.sub_priv.asc..."
+echo "$GPG_KEY_SUB" | base64 -d | gpg --batch --no-tty --import 2>&1 \
+  | grep -v "^gpg: key.*: already in secret keyring" || true
+
+fpr=$(gpg --batch --no-tty --list-keys --with-colons {{ .email | quote }} \
+  | awk -F: '/^fpr/{print $10; exit}')
+echo "${fpr}:6:" | gpg --batch --no-tty --import-ownertrust
 
 echo "==> GPG keys imported"
