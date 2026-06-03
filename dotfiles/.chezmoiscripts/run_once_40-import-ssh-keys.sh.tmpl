@@ -3,13 +3,14 @@
 
 set -euo pipefail
 
-SSH_DIR="{{ .chezmoi.homeDir }}/.ssh"
+SSH_DIR="{{ .chezmoi.homeDir }}/.ssh/keys"
 mkdir -p "$SSH_DIR"
-chmod 700 "$SSH_DIR"
+chmod 700 "$(dirname "$SSH_DIR")" "$SSH_DIR"
 
 echo "==> Importing SSH keys..."
 
 {{ range .sshKeys -}}
+echo "===> Importing {{ . }}..."
 if [[ ! -f "$SSH_DIR/id_{{ . }}" ]]; then
   cat > "$SSH_DIR/id_{{ . }}" << 'EOF'
 {{ (bitwarden "item" .).sshKey.privateKey }}
