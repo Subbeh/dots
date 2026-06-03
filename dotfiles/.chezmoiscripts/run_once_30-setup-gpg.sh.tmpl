@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Import GPG keys from Bitwarden (provided via scriptEnv as base64)
+# Import GPG keys from Bitwarden
 
 set -euo pipefail
+
+{{- $gpgItemId := (bitwarden "item" "gpg-keys").id }}
 
 echo "==> Importing GPG keys..."
 
@@ -9,15 +11,15 @@ export GPG_TTY="$(tty 2>/dev/null || true)"
 gpgconf --launch gpg-agent
 
 echo "==> Importing {{ .email }}.priv.asc..."
-echo "$GPG_KEY_PRIV" | base64 -d | gpg --batch --no-tty --import 2>&1 \
+echo {{ bitwardenAttachment (printf "%s.priv.asc" .email) $gpgItemId | b64enc | quote }} | base64 -d | gpg --batch --no-tty --import 2>&1 \
   | grep -v "^gpg: key.*: already in secret keyring" || true
 
 echo "==> Importing {{ .email }}.pub.asc..."
-echo "$GPG_KEY_PUB" | base64 -d | gpg --batch --no-tty --import 2>&1 \
+echo {{ bitwardenAttachment (printf "%s.pub.asc" .email) $gpgItemId | b64enc | quote }} | base64 -d | gpg --batch --no-tty --import 2>&1 \
   | grep -v "^gpg: key.*: already in secret keyring" || true
 
 echo "==> Importing {{ .email }}.sub_priv.asc..."
-echo "$GPG_KEY_SUB" | base64 -d | gpg --batch --no-tty --import 2>&1 \
+echo {{ bitwardenAttachment (printf "%s.sub_priv.asc" .email) $gpgItemId | b64enc | quote }} | base64 -d | gpg --batch --no-tty --import 2>&1 \
   | grep -v "^gpg: key.*: already in secret keyring" || true
 
 fpr=$(gpg --batch --no-tty --list-keys --with-colons {{ .email | quote }} \

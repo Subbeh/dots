@@ -21,8 +21,6 @@
 {{-   $ageKeyPub = index (bitwardenFields "item" "chezmoi") "age-key-pub" | dig "value" "" -}}
 {{- end -}}
 
-{{- $gpgItemId := (bitwarden "item" "gpg-keys").id -}}
-
 sourceDir = {{ joinPath .chezmoi.homeDir "workspace" "chezmoi" | quote }}
 
 encryption = "age"
@@ -42,9 +40,6 @@ encryption = "age"
   {{- else if eq .chezmoi.os "linux" }}
   PATH = "/usr/local/bin:/usr/bin:/bin"
   {{- end }}
-  GPG_KEY_PRIV    = {{ bitwardenAttachment (printf "%s.priv.asc" $email) $gpgItemId | b64enc | quote }}
-  GPG_KEY_PUB     = {{ bitwardenAttachment (printf "%s.pub.asc" $email) $gpgItemId | b64enc | quote }}
-  GPG_KEY_SUB     = {{ bitwardenAttachment (printf "%s.sub_priv.asc" $email) $gpgItemId | b64enc | quote }}
 
 [data]
   profile      = {{ $profile | quote }}
