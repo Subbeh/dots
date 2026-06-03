@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Install system packages
+
+set -euo pipefail
+
+packages=(
+  age
+  bitwarden-cli
+  git
+  gnupg
+  jq
+  yq
+)
+
+{{ if eq .chezmoi.os "darwin" -}}
+if ! command -v brew &>/dev/null; then
+  echo "==> Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+brew install --quiet "${packages[@]}" pinentry-mac
+
+{{ else if eq .chezmoi.os "linux" -}}
+sudo pacman -Syu --needed --noconfirm "${packages[@]}" pinentry
+
+{{ end -}}
+
+echo "==> Packages installed"

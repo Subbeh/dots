@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Retrieve age key from Bitwarden and write to ~/.config/chezmoi/
+
+set -euo pipefail
+
+KEY_FILE="{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt"
+PUB_FILE="{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt.pub"
+
+if [[ -f "$KEY_FILE" && -f "$PUB_FILE" ]]; then
+  exit 0
+fi
+
+echo "==> Retrieving age key from Bitwarden..."
+
+if ! command -v bw &>/dev/null; then
+  echo "ERROR: bw (Bitwarden CLI) not found. Install it first." >&2
+  exit 1
+fi
+
+BW_SESSION_FILE="{{ .chezmoi.homeDir }}/.config/chezmoi/.bw-session"
+BW_SESSION="$(cat "$BW_SESSION_FILE")"
+export BW_SESSION
+
+bw_item="$(bw list items --search chezmoi | jq -r '.[] | select(.name=="chezmoi")')"
+
+AGE_KEY="$(echo "$bw_item" | jq -r '.fields[] | select(.name=="age-key") | .value')"
+AGE_KEY_PUB="$(echo "$bw_item" | jq -r '.fields[] | select(.name=="age-key-pub") | .value')"
+
+if [[ -z "$AGE_KEY" || -z "$AGE_KEY_PUB" ]]; then
+  echo "ERROR: Could not retrieve age key fields from Bitwarden item 'chezmoi'" >&2
+  exit 1
+fi
+
+mkdir -p "$(dirname "$KEY_FILE")"
+echo "$AGE_KEY" > "$KEY_FILE"
+chmod 600 "$KEY_FILE"
+echo "$AGE_KEY_PUB" > "$PUB_FILE"
+chmod 644 "$PUB_FILE"
+
+echo "==> Age keys written to $(dirname "$KEY_FILE")"

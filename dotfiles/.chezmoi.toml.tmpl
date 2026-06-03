@@ -1,0 +1,45 @@
+{{- $email := promptStringOnce . "email" "Email address" -}}
+{{- $profile := "" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $profile = "work" -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{-   $profile = "personal" -}}
+{{- end -}}
+
+{{- $workspaceDir := "" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $workspaceDir = joinPath .chezmoi.homeDir "workspace" -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{-   $workspaceDir = "/data/workspace" -}}
+{{- end -}}
+
+{{- $ageKeyPubFile := joinPath .chezmoi.homeDir ".config" "chezmoi" "key.txt.pub" -}}
+{{- $ageKeyPub := "" -}}
+{{- if stat $ageKeyPubFile -}}
+{{-   $ageKeyPub = output "cat" $ageKeyPubFile | trim -}}
+{{- end -}}
+
+sourceDir = {{ joinPath .chezmoi.homeDir "workspace" "chezmoi" | quote }}
+
+encryption = "age"
+
+[age]
+  identity = {{ joinPath .chezmoi.homeDir ".config" "chezmoi" "key.txt" | quote }}
+  {{- if $ageKeyPub }}
+  recipients = [{{ $ageKeyPub | quote }}]
+  {{- end }}
+
+[scriptEnv]
+  {{- if eq .chezmoi.os "darwin" }}
+  PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+  {{- else if eq .chezmoi.os "linux" }}
+  PATH = "/usr/local/bin:/usr/bin:/bin"
+  {{- end }}
+
+[data]
+  profile      = {{ $profile | quote }}
+  workspaceDir = {{ $workspaceDir | quote }}
+  email        = {{ $email | quote }}
+  {{- if eq .chezmoi.os "darwin" }}
+  homebrewPrefix = "/opt/homebrew"
+  {{- end }}

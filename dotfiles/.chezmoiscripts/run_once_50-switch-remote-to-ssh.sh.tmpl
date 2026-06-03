@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Switch chezmoi repo remote from HTTPS to SSH now that SSH keys are available
+
+set -euo pipefail
+
+REPO="git@github.com:Subbeh/dots.git"
+SOURCE_DIR="{{ joinPath .chezmoi.homeDir "workspace" "chezmoi" }}"
+
+current="$(git -C "$SOURCE_DIR" remote get-url origin 2>/dev/null || true)"
+
+if [[ "$current" == "$REPO" ]]; then
+  exit 0
+fi
+
+echo "==> Switching git remote to SSH..."
+git -C "$SOURCE_DIR" remote set-url origin "$REPO"
+echo "==> Remote is now $REPO"

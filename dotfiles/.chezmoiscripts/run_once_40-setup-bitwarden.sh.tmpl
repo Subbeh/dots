@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Cache Bitwarden session encrypted with GPG for bwunlock
+
+set -euo pipefail
+
+BITWARDENCLI_APPDATA_DIR="${BITWARDENCLI_APPDATA_DIR:-$HOME/.local/share/bitwardencli}"
+keychain_file="$BITWARDENCLI_APPDATA_DIR/.bitwarden-session.keychain"
+BW_SESSION_FILE="{{ .chezmoi.homeDir }}/.config/chezmoi/.bw-session"
+
+if [[ -f "$keychain_file" ]]; then
+  rm -f "$BW_SESSION_FILE"
+  exit 0
+fi
+
+echo "==> Setting up Bitwarden session keychain..."
+
+gpg_key=$(gpg --list-keys --with-colons {{ .email | quote }} 2>/dev/null |
+  awk -F: '$1=="pub" && $2!~/e/ {print $5}' |
+  tail -n1)
+
+if [[ -z "$gpg_key" ]]; then
+  echo "==> No GPG key found for {{ .email }}, skipping keychain setup"
+  rm -f "$BW_SESSION_FILE"
+  exit 0
+fi
+
+BW_SESSION="$(cat "$BW_SESSION_FILE")"
+export BW_SESSION
+
+mkdir -p "$BITWARDENCLI_APPDATA_DIR"
+echo "$BW_SESSION" | gpg --batch --yes --trust-model always --encrypt --recipient "$gpg_key" -o "$keychain_file"
+chmod 600 "$keychain_file"
+
+rm -f "$BW_SESSION_FILE"
+bw lock
+echo "==> Bitwarden session keychain created"
