@@ -30,11 +30,9 @@ case "$(uname -s)" in
 esac
 
 echo "==> Logging in to Bitwarden..."
-if [[ -z "${BW_SESSION:-}" ]]; then
-  _keychain="${BITWARDENCLI_APPDATA_DIR:-$HOME/.config/Bitwarden CLI}/.bitwarden-session.keychain"
-  if [[ -f "$_keychain" ]]; then
-    BW_SESSION="$(gpg --decrypt "$_keychain" 2>/dev/null)" || true
-  fi
+_keychain="${BITWARDENCLI_APPDATA_DIR:-$HOME/.local/share/bitwardencli}/.bitwarden-session.keychain"
+if [[ -z "${BW_SESSION:-}" && -f "$_keychain" ]]; then
+  BW_SESSION="$(gpg --decrypt "$_keychain" 2>/dev/null)" || true
 fi
 if [[ -z "${BW_SESSION:-}" ]]; then
   if ! bw login --check &>/dev/null; then
@@ -42,6 +40,10 @@ if [[ -z "${BW_SESSION:-}" ]]; then
   else
     BW_SESSION="$(bw unlock --raw)" || { echo "Bitwarden unlock failed" >&2; exit 1; }
   fi
+fi
+if [[ -z "${BW_SESSION:-}" ]]; then
+  echo "Failed to obtain Bitwarden session" >&2
+  exit 1
 fi
 export BW_SESSION
 bw sync

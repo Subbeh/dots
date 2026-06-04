@@ -13,7 +13,13 @@
 {{-   $workspaceDir = "/data/workspace" -}}
 {{- end -}}
 
-{{- $ageKeyPub := index (bitwardenFields "item" "chezmoi") "age-key-pub" | dig "value" "" -}}
+{{- $ageKeyPubFile := joinPath .chezmoi.homeDir ".config" "chezmoi" "key.txt.pub" -}}
+{{- $ageKeyPub := "" -}}
+{{- if stat $ageKeyPubFile -}}
+{{-   $ageKeyPub = output "cat" $ageKeyPubFile | trim -}}
+{{- else -}}
+{{-   $ageKeyPub = index (bitwardenFields "item" "chezmoi") "age-key-pub" | dig "value" "" -}}
+{{- end -}}
 
 sourceDir = {{ joinPath .chezmoi.homeDir "workspace" "chezmoi" | quote }}
 
