@@ -13,23 +13,15 @@
 {{-   $workspaceDir = "/data/workspace" -}}
 {{- end -}}
 
-{{- $ageKeyPubFile := joinPath .chezmoi.homeDir ".config" "chezmoi" "key.txt.pub" -}}
-{{- $ageKeyPub := "" -}}
-{{- if stat $ageKeyPubFile -}}
-{{-   $ageKeyPub = output "cat" $ageKeyPubFile | trim -}}
-{{- else -}}
-{{-   $ageKeyPub = index (bitwardenFields "item" "chezmoi") "age-key-pub" | dig "value" "" -}}
-{{- end -}}
+{{- $ageKeyPub := index (bitwardenFields "item" "chezmoi") "age-key-pub" | dig "value" "" -}}
 
 sourceDir = {{ joinPath .chezmoi.homeDir "workspace" "chezmoi" | quote }}
 
 encryption = "age"
 
 [age]
-  identity   = {{ joinPath .chezmoi.homeDir ".config" "chezmoi" "key.txt" | quote }}
-  {{- if $ageKeyPub }}
-  recipients = [{{ $ageKeyPub | quote }}]
-  {{- end }}
+  identity  = {{ joinPath .chezmoi.homeDir ".config" "chezmoi" "key.txt" | quote }}
+  recipient = {{ $ageKeyPub | quote }}
 
 [bitwarden]
   unlock = "auto"

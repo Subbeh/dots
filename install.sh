@@ -31,10 +31,11 @@ esac
 
 echo "==> Logging in to Bitwarden..."
 if ! bw login --check &>/dev/null; then
-  export BW_SESSION="$(bw login --raw)"
+  BW_SESSION="$(bw login --raw)" || { echo "Bitwarden login failed" >&2; exit 1; }
 else
-  export BW_SESSION="$(bw unlock --raw)"
+  BW_SESSION="$(bw unlock --raw)" || { echo "Bitwarden unlock failed" >&2; exit 1; }
 fi
+export BW_SESSION
 bw sync
 
 chezmoi init --apply --source "$SOURCE_DIR" "$REPO"
