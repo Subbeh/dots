@@ -12,17 +12,25 @@ packages=(
   yq
 )
 
+packages_darwin=(
+  pinentry-mac
+)
+
+packages_linux=(
+  pinentry
+)
+
 {{ if eq .chezmoi.os "darwin" -}}
 if ! command -v brew &>/dev/null; then
   echo "==> Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 echo "==> Installing packages..."
-brew install --quiet "${packages[@]}" pinentry-mac
+brew install --quiet "${packages[@]}" "${packages_darwin[@]}"
 
 {{ else if eq .chezmoi.os "linux" -}}
 echo "==> Installing packages..."
-sudo pacman -Syu --needed --noconfirm "${packages[@]}" pinentry
+sudo pacman -Syu --needed --noconfirm "${packages[@]}" "${packages_linux[@]}"
 
 {{ end -}}
 

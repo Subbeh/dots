@@ -21,7 +21,7 @@
 {{-   $ageKeyPub = index (bitwardenFields "item" "chezmoi") "age-key-pub" | dig "value" "" -}}
 {{- end -}}
 
-sourceDir = {{ joinPath .chezmoi.homeDir "workspace" "chezmoi" | quote }}
+sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 encryption = "age"
 

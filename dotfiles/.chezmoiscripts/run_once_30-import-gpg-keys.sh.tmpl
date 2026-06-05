@@ -8,7 +8,7 @@ SECRETS_FILE="{{ .chezmoi.sourceDir }}/.chezmoidata/secrets.json"
 echo "==> Importing GPG keys..."
 
 export GPG_TTY="$(tty 2>/dev/null || true)"
-gpgconf --launch gpg-agent
+gpgconf --launch gpg-agent 2>/dev/null || true
 
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT

@@ -6,8 +6,8 @@ set -euo pipefail
 REPO="Subbeh/dots.git"
 
 case "$(uname -s)" in
-  Darwin) SOURCE_DIR="$HOME/workspace/chezmoi" ;;
-  Linux) SOURCE_DIR="/data/workspace/chezmoi" ;;
+  Darwin) SOURCE_DIR="${SOURCE_DIR:-$HOME/workspace/chezmoi}" ;;
+  Linux) SOURCE_DIR="${SOURCE_DIR:-/data/workspace/chezmoi}" ;;
   *)
     echo "Unsupported OS" >&2
     exit 1
@@ -36,10 +36,6 @@ esac
 # export BITWARDENCLI_APPDATA_DIR="${BITWARDENCLI_APPDATA_DIR:-$HOME/.local/share/bitwardencli}"
 
 echo "==> Logging in to Bitwarden..."
-# _keychain="$BITWARDENCLI_APPDATA_DIR/.bitwarden-session.keychain"
-# if [[ -z "${BW_SESSION:-}" && -f "$_keychain" ]]; then
-#   BW_SESSION="$(gpg --decrypt "$_keychain" 2>/dev/null)" || true
-# fi
 if [[ -z "${BW_SESSION:-}" ]]; then
   if ! bw login --check &>/dev/null; then
     BW_SESSION="$(bw login --raw)" || {
@@ -52,13 +48,12 @@ if [[ -z "${BW_SESSION:-}" ]]; then
       exit 1
     }
   fi
-fi
-if [[ -z "${BW_SESSION:-}" ]]; then
-  echo "Failed to obtain Bitwarden session" >&2
-  exit 1
+  if [[ -z "${BW_SESSION:-}" ]]; then
+    echo "Failed to obtain Bitwarden session" >&2
+    exit 1
+  fi
 fi
 export BW_SESSION
-echo "==> BW_SESSION: ${BW_SESSION:0:10}..."
 
 bw sync
 
