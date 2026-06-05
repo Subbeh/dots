@@ -5,6 +5,7 @@ set -euo pipefail
 
 KEY_FILE="{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt"
 PUB_FILE="{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt.pub"
+SECRETS_FILE="{{ .chezmoi.sourceDir }}/.chezmoidata/secrets.json"
 
 if [[ -f "$KEY_FILE" && -f "$PUB_FILE" ]]; then
   exit 0
@@ -14,14 +15,9 @@ echo "==> Writing age key..."
 
 mkdir -p "$(dirname "$KEY_FILE")"
 
-cat > "$KEY_FILE" << 'EOF'
-{{ index (bitwardenFields "item" "chezmoi") "age-key" | dig "value" "" }}
-EOF
+jq -r '.chezmoi["age-key"]'     "$SECRETS_FILE" > "$KEY_FILE"
+jq -r '.chezmoi["age-key-pub"]' "$SECRETS_FILE" > "$PUB_FILE"
 chmod 600 "$KEY_FILE"
-
-cat > "$PUB_FILE" << 'EOF'
-{{ index (bitwardenFields "item" "chezmoi") "age-key-pub" | dig "value" "" }}
-EOF
 chmod 644 "$PUB_FILE"
 
 echo "==> Age key written to $(dirname "$KEY_FILE")"

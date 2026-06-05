@@ -29,8 +29,6 @@ encryption = "age"
   identity  = {{ joinPath .chezmoi.homeDir ".config" "chezmoi" "key.txt" | quote }}
   recipient = {{ $ageKeyPub | quote }}
 
-[bitwarden]
-  unlock = "auto"
 
 [scriptEnv]
   {{- if eq .chezmoi.os "darwin" }}

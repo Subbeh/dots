@@ -4,6 +4,8 @@
 set -euo pipefail
 
 SSH_DIR="{{ .chezmoi.homeDir }}/.ssh/keys"
+SECRETS_FILE="{{ .chezmoi.sourceDir }}/.chezmoidata/secrets.json"
+
 mkdir -p "$SSH_DIR"
 chmod 700 "$(dirname "$SSH_DIR")" "$SSH_DIR"
 
@@ -12,16 +14,12 @@ echo "==> Importing SSH keys..."
 {{ range .sshKeys -}}
 echo "===> Importing {{ . }}..."
 if [[ ! -f "$SSH_DIR/id_{{ . }}" ]]; then
-  cat > "$SSH_DIR/id_{{ . }}" << 'EOF'
-{{ (bitwarden "item" .).sshKey.privateKey }}
-EOF
+  jq -r '.ssh["{{ . }}"].private' "$SECRETS_FILE" > "$SSH_DIR/id_{{ . }}"
   chmod 600 "$SSH_DIR/id_{{ . }}"
 fi
 
 if [[ ! -f "$SSH_DIR/id_{{ . }}.pub" ]]; then
-  cat > "$SSH_DIR/id_{{ . }}.pub" << 'EOF'
-{{ (bitwarden "item" .).sshKey.publicKey }}
-EOF
+  jq -r '.ssh["{{ . }}"].public' "$SECRETS_FILE" > "$SSH_DIR/id_{{ . }}.pub"
   chmod 644 "$SSH_DIR/id_{{ . }}.pub"
 fi
 

@@ -3,23 +3,30 @@
 
 set -euo pipefail
 
-{{- $gpgItemId := (bitwarden "item" "gpg-keys").id }}
+SECRETS_FILE="{{ .chezmoi.sourceDir }}/.chezmoidata/secrets.json"
 
 echo "==> Importing GPG keys..."
 
 export GPG_TTY="$(tty 2>/dev/null || true)"
 gpgconf --launch gpg-agent
 
+tmpdir=$(mktemp -d)
+trap 'rm -rf "$tmpdir"' EXIT
+
+jq -r '.gpg.priv_asc'      "$SECRETS_FILE" | base64 -d > "$tmpdir/priv.asc"
+jq -r '.gpg.pub_asc'       "$SECRETS_FILE" | base64 -d > "$tmpdir/pub.asc"
+jq -r '.gpg.sub_priv_asc'  "$SECRETS_FILE" | base64 -d > "$tmpdir/sub_priv.asc"
+
 echo "===> Importing {{ .email }}.priv.asc..."
-echo {{ bitwardenAttachment (printf "%s.priv.asc" .email) $gpgItemId | b64enc | quote }} | base64 -d | gpg --batch --no-tty --import 2>&1 \
+gpg --batch --no-tty --import "$tmpdir/priv.asc" 2>&1 \
   | grep -v "^gpg: key.*: already in secret keyring" || true
 
 echo "===> Importing {{ .email }}.pub.asc..."
-echo {{ bitwardenAttachment (printf "%s.pub.asc" .email) $gpgItemId | b64enc | quote }} | base64 -d | gpg --batch --no-tty --import 2>&1 \
+gpg --batch --no-tty --import "$tmpdir/pub.asc" 2>&1 \
   | grep -v "^gpg: key.*: already in secret keyring" || true
 
 echo "===> Importing {{ .email }}.sub_priv.asc..."
-echo {{ bitwardenAttachment (printf "%s.sub_priv.asc" .email) $gpgItemId | b64enc | quote }} | base64 -d | gpg --batch --no-tty --import 2>&1 \
+gpg --batch --no-tty --import "$tmpdir/sub_priv.asc" 2>&1 \
   | grep -v "^gpg: key.*: already in secret keyring" || true
 
 fpr=$(gpg --batch --no-tty --list-keys --with-colons {{ .email | quote }} \
