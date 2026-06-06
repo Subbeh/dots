@@ -1,0 +1,34 @@
+---
+name: home
+root: ~/
+startup_window: playground
+startup_pane: 2
+attach: false
+windows:
+  - playground:
+      layout: e318,267x72,0,0[267x62,0,0{66x62,0,0,1,200x62,67,0,5},267x9,0,63,7]
+      panes:
+        -
+        - editor:
+        -
+  - dots:
+      root: <%= ENV["DOT_DIR"] %>
+      layout: e318,267x72,0,0[267x62,0,0{66x62,0,0,1,200x62,67,0,5},267x9,0,63,7]
+      panes:
+        -
+        - editor:
+        -
+  - homelab:
+      root: <%= ENV["HOMELAB_DIR"] %>
+      layout: e318,267x72,0,0[267x62,0,0{66x62,0,0,1,200x62,67,0,5},267x9,0,63,7]
+      panes:
+        -
+        - editor:
+        -
+  - projects:
+      root: <%= ENV["PROJECT_DIR"] %>
+      layout: e318,267x72,0,0[267x62,0,0{66x62,0,0,1,200x62,67,0,5},267x9,0,63,7]
+      panes:
+        -
+        - editor:
+        -

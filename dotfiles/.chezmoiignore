@@ -1,0 +1,27 @@
+{{ if ne .profile "work" }}
+.config/k9s/work/
+.config/git/config-work.inc
+.config/karabiner
+.config/tmuxinator/work.yml
+.local/bin/__jpro*
+Library
+{{ end }}
+
+{{ if ne .profile "personal" }}
+.config/hypr
+.config/pypr
+.config/rofi
+.config/swaync
+.config/uwsm
+.config/waybar
+.config/xdg-desktop-portal
+.config/chromium-flags.conf
+.config/mimeapps.list
+.config/user-dirs.dirs
+.config/zsh/.zshrc.d/99-hyprland.zsh
+.local/share/applications
+.local/bin/__hypr*
+.local/bin/__waybar*
+.local/bin/__rofi*
+.local/share/wallpapers
+{{ end }}

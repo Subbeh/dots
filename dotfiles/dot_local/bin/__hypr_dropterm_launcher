@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+WINDOW_CLASS="dropterm"
+STATE_FILE="/tmp/hypr_dropterm_active"
+
+main() {
+  active_ws=$(hyprctl activewindow -j | jq -r .workspace.name)
+  if [[ "$active_ws" != "special:$WINDOW_CLASS" ]]; then
+    echo "$active_ws" >"$STATE_FILE"
+  fi
+
+  if ! _check_session; then
+    _set_properties
+    _new_session
+  else
+    _toggle_dropterm
+  fi
+}
+
+_check_session() {
+  hyprctl clients -j | jq -c '.[].class' | grep -q "$WINDOW_CLASS" || return 1
+}
+
+_check_active() {
+  hyprctl activewindow -j | jq -c '.class' | grep -q "$WINDOW_CLASS" || return 1
+}
+
+_set_properties() {
+  hyprctl keyword windowrule "match:class ^($WINDOW_CLASS)$, workspace special:dropterm"
+  hyprctl keyword windowrule "match:class ^($WINDOW_CLASS)$, float on"
+  hyprctl keyword windowrule "match:class ^($WINDOW_CLASS)$, no_blur on"
+  hyprctl keyword windowrule "match:class ^($WINDOW_CLASS)$, size (monitor_w*0.8) (monitor_h*0.5)"
+  hyprctl keyword windowrule "match:class ^($WINDOW_CLASS)$, move ((monitor_w*0.1)) ((monitor_h*0))"
+  hyprctl keyword windowrule "match:class ^($WINDOW_CLASS)$, animation slidefadevert -15%"
+}
+
+_new_session() {
+  uwsm app -- kitty --class "$WINDOW_CLASS" -o font_size="9" -o window_padding_width="20 10 10 10" -e zsh -c "tmux new-session -A -s $WINDOW_CLASS" &
+  disown
+}
+
+_toggle_dropterm() {
+  hyprctl dispatch togglespecialworkspace $WINDOW_CLASS
+
+  if [[ "$active_ws" == "special:$WINDOW_CLASS" && "$(cat "$STATE_FILE" 2>/dev/null)" == "special:term" ]]; then
+    hyprctl dispatch togglespecialworkspace term
+  fi
+}
+
+main

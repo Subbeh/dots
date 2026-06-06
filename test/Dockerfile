@@ -7,6 +7,7 @@ RUN echo "DisableSandbox" >> /etc/pacman.conf \
       base-devel \
       curl \
       git \
+      openssh \
       sudo \
     && echo "$USERNAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \

@@ -15,8 +15,8 @@ echo "==> Writing age key..."
 
 mkdir -p "$(dirname "$KEY_FILE")"
 
-jq -r '.chezmoi["age-key"]'     "$SECRETS_FILE" > "$KEY_FILE"
-jq -r '.chezmoi["age-key-pub"]' "$SECRETS_FILE" > "$PUB_FILE"
+jq -r '.secrets.chezmoi["age-key"]'     "$SECRETS_FILE" > "$KEY_FILE"
+jq -r '.secrets.chezmoi["age-key-pub"]' "$SECRETS_FILE" > "$PUB_FILE"
 chmod 600 "$KEY_FILE"
 chmod 644 "$PUB_FILE"
 

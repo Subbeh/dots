@@ -13,9 +13,9 @@ gpgconf --launch gpg-agent 2>/dev/null || true
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
-jq -r '.gpg.priv_asc'      "$SECRETS_FILE" | base64 -d > "$tmpdir/priv.asc"
-jq -r '.gpg.pub_asc'       "$SECRETS_FILE" | base64 -d > "$tmpdir/pub.asc"
-jq -r '.gpg.sub_priv_asc'  "$SECRETS_FILE" | base64 -d > "$tmpdir/sub_priv.asc"
+jq -r '.secrets.gpg.priv_asc'      "$SECRETS_FILE" | base64 -d > "$tmpdir/priv.asc"
+jq -r '.secrets.gpg.pub_asc'       "$SECRETS_FILE" | base64 -d > "$tmpdir/pub.asc"
+jq -r '.secrets.gpg.sub_priv_asc'  "$SECRETS_FILE" | base64 -d > "$tmpdir/sub_priv.asc"
 
 echo "===> Importing {{ .email }}.priv.asc..."
 gpg --batch --no-tty --import "$tmpdir/priv.asc" 2>&1 \

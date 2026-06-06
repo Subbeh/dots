@@ -14,12 +14,12 @@ echo "==> Importing SSH keys..."
 {{ range .sshKeys -}}
 echo "===> Importing {{ . }}..."
 if [[ ! -f "$SSH_DIR/id_{{ . }}" ]]; then
-  jq -r '.ssh["{{ . }}"].private' "$SECRETS_FILE" > "$SSH_DIR/id_{{ . }}"
+  jq -r '.secrets.ssh["{{ . }}"].private' "$SECRETS_FILE" > "$SSH_DIR/id_{{ . }}"
   chmod 600 "$SSH_DIR/id_{{ . }}"
 fi
 
 if [[ ! -f "$SSH_DIR/id_{{ . }}.pub" ]]; then
-  jq -r '.ssh["{{ . }}"].public' "$SECRETS_FILE" > "$SSH_DIR/id_{{ . }}.pub"
+  jq -r '.secrets.ssh["{{ . }}"].public' "$SECRETS_FILE" > "$SSH_DIR/id_{{ . }}.pub"
   chmod 644 "$SSH_DIR/id_{{ . }}.pub"
 fi
 
