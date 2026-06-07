@@ -177,8 +177,8 @@ handle_monitor_change() {
           echo "INFO: Monitor events stabilized, executing reload..."
 
           # Call hypr_reload to reconfigure waybar
-          if command -v hypr_reload &>/dev/null; then
-            hypr_reload 2>&1 | while read -r line; do
+          if command -v __hypr_reload &>/dev/null; then
+            __hypr_reload 2>&1 | while read -r line; do
               echo "  [hypr_reload] $line"
             done
           else

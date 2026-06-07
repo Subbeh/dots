@@ -5,6 +5,7 @@ if [ -d "$WORKSPACE_DIR/chezmoi/dotfiles" ]; then
 fi
 export DOT_DIR
 
+alias c='chezmoi'
 alias cd.="cd \${DOT_DIR:?not set}"
 alias ds='chezmoi status'
 alias ddiff='chezmoi diff'
