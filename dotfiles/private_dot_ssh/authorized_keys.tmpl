@@ -1,0 +1,3 @@
+{{ range .authorizedSshKeys -}}
+{{ (index $.secrets.ssh .).public }}
+{{ end -}}

@@ -14,3 +14,7 @@ alias dad='chezmoi apply --dry-run -v'
 alias de='chezmoi edit'
 alias dup='chezmoi update'
 alias ddoc='chezmoi doctor'
+
+dsupdate() {
+  chezmoi execute-template <"$(chezmoi source-path)/.chezmoiscripts/run_onchange_before_01-fetch-secrets.sh.tmpl" | bash
+}
