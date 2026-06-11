@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+chezmoi=$(__tmux_chezmoi_status)
+git=$(gitmux "$1")
+
+if [[ -n "$chezmoi" && -n "$git" ]]; then
+    echo "$chezmoi #[fg=colour243] ⏽ #[fg=default]$git"
+elif [[ -n "$chezmoi" ]]; then
+    echo "$chezmoi"
+else
+    echo "$git"
+fi

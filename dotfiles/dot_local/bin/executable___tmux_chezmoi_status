@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+status=$(chezmoi status 2>/dev/null)
+rc=$?
+[[ $rc -ne 0 ]] && echo "" && exit 0
+[[ -z "$status" ]] && echo "#[fg=colour2]#[fg=default]" && exit 0
+
+modified=$(echo "$status" | grep -c '^.M')
+added=$(echo "$status" | grep -c '^.A')
+deleted=$(echo "$status" | grep -c '^.D')
+run=$(echo "$status" | grep -c '^.R')
+
+parts=()
+[[ $modified -gt 0 ]] && parts+=("#[fg=colour12]~ $modified")
+[[ $added -gt 0 ]] && parts+=("#[fg=colour15]+ $added")
+[[ $deleted -gt 0 ]] && parts+=("#[fg=colour9]- $deleted")
+[[ $run -gt 0 ]] && parts+=("#[fg=colour2]$ $run")
+
+[[ ${#parts[@]} -eq 0 ]] && exit 0
+
+IFS=' '
+echo "  ${parts[*]}"
