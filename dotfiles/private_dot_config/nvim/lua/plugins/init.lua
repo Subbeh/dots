@@ -6,9 +6,11 @@
 -- octo
 
 return {
+  -- stylua: ignore start
   { "nvim-lua/plenary.nvim" },
-  { "echasnovski/mini.nvim" },
-  { "echasnovski/mini.icons" },
+  { "nvim-mini/mini.nvim" },
+  { "nvim-mini/mini.icons" },
+  { "nvim-mini/mini.align", opts = {} },
   { "nvim-tree/nvim-web-devicons" },
   { "chentoast/marks.nvim",       event = "VeryLazy",                                            opts = {} },
   { "tpope/vim-fugitive",         keys = { { "<leader>gg", "<cmd>Git<cr>", desc = "Fugitive" } } },
