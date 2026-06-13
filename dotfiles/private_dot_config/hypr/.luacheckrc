@@ -1,0 +1,4 @@
+-- Global objects
+globals = {
+	"hl",
+}

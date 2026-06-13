@@ -3,12 +3,9 @@
 if [ "$PROFILE_OS" = "linux" ]; then
   # Reset HYPRLAND_INSTANCE_SIGNATURE to newest Hyprland instance
   update_hyprland_signature() {
-    # if [ "$HYPRLAND_INSTANCE_SIGNATURE" != "" ]; then
-    newest_socket="$(ls -t "$XDG_RUNTIME_DIR"/hypr/*/.socket.sock 2>/dev/null | head -1)"
-    if [ "$newest_socket" != "" ]; then
-      export HYPRLAND_INSTANCE_SIGNATURE="$(basename "$(dirname "$newest_socket")")"
-    fi
-    # fi
+    newest_socket="$(find "$XDG_RUNTIME_DIR/hypr" -maxdepth 2 -name '.socket.sock' -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2-)"
+    [ -n "$newest_socket" ] || return
+    export HYPRLAND_INSTANCE_SIGNATURE="$(basename "$(dirname "$newest_socket")")"
   }
   update_hyprland_signature
 

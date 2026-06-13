@@ -4,13 +4,13 @@
 // -------------------------------------------------------------------------
 [
   {
-    "output": "@@OUTPUT@@",
+    "output": "eDP-1",
     "include": [
       "~/.config/waybar/config_top"
     ]
   },
   {
-    "output": "@@OUTPUT@@",
+    "output": "eDP-1",
     "include": [
       "~/.config/waybar/config_bottom"
     ]
