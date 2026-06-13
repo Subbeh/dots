@@ -14,11 +14,13 @@ hl.bind("F9",                hl.dsp.window.fullscreen("fullscreen", "toggle", "a
 hl.bind("F10",               hl.dsp.window.fullscreen("maximized",  "toggle", "activewindow"))
 hl.bind("ALT + SHIFT + TAB", hl.dsp.window.cycle_next("next"))
 hl.bind("CTRL + TAB",        hl.dsp.exec_cmd("__rofi_launcher window windows"))
-hl.bind("SUPER + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
+hl.bind("SUPER + F",         hl.dsp.window.float({ action = "toggle" }))
 hl.bind("SUPER + H",         hl.dsp.focus({direction = "left"}))
 hl.bind("SUPER + L",         hl.dsp.focus({direction = "right"}))
 hl.bind("SUPER + K",         hl.dsp.focus({direction = "up"}))
 hl.bind("SUPER + J",         hl.dsp.focus({direction = "down"}))
+hl.bind("SUPER + mouse:272", hl.dsp.window.drag())
+hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
 
 --- swap windows
 hl.bind("SUPER + code:34", hl.dsp.window.swap({ next = 1 }))
@@ -45,6 +47,7 @@ hl.bind("SUPER + S", function ()
 end)
 
 --- toggle dropterm
+-- hl.bind("F12", Dropterm())
 
 -- PLUGINS
 

@@ -1,6 +1,6 @@
 {
   "diagnostics": {
-    "disable": ["undefined-global"]
+    "disable": ["undefined-global"],
     "globals": "hl"
   },
   "workspace": {
