@@ -1,9 +1,25 @@
 return {
+  cmd = {
+    "lua-language-server",
+  },
+  filetypes = {
+    "lua",
+  },
+  -- root_markers = {
+  --   ".git",
+  --   ".luacheckrc",
+  --   ".luarc.json",
+  --   ".luarc.jsonc",
+  --   ".stylua.toml",
+  --   "selene.toml",
+  --   "selene.yml",
+  --   "stylua.toml",
+  -- },
   settings = {
     Lua = {
-      runtime = {
-        version = "LuaJIT",
-      },
+      -- runtime = {
+      --   version = "LuaJIT",
+      -- },
       diagnostics = {
         globals = { "vim" },
       },
@@ -17,9 +33,9 @@ return {
         enable = true,
         arrayIndex = "Disable", -- "Enable" | "Auto" | "Disable"
         await = true,
-        paramName = "Disable",  -- "All" | "Literal" | "Disable"
+        paramName = "Disable", -- "All" | "Literal" | "Disable"
         paramType = true,
-        semicolon = "All",      -- "All" | "SameLine" | "Disable"
+        semicolon = "All", -- "All" | "SameLine" | "Disable"
         setType = false,
       },
       format = {

@@ -1,10 +1,10 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter", -- TODO: update ensure_installed
+    branch = "master",
+    enabled = false,
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-textobjects" },
-      -- { "nvim-treesitter/playground" }, -- incompatible with nvim-treesitter v1.0
-      -- { "nvim-treesitter/nvim-treesitter-context" },
       { "LiadOz/nvim-dap-repl-highlights" },
       { "RRethy/nvim-treesitter-endwise" }, -- TODO: test if works
     },
