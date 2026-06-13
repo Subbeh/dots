@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+{{ if eq .chezmoi.os "linux" -}}
+hyprpm add https://github.com/sandwichfarm/hyprexpo
+hyprpm enable hyprexpo
+hyprpm reload
+{{ end -}}

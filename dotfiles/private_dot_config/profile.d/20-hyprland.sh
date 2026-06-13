@@ -11,9 +11,14 @@ if [ "$PROFILE_OS" = "linux" ]; then
 
   # hyprland
   alias hl="uwsm check may-start && uwsm start hyprland-uwsm.desktop"
-  alias hyprlogs='less $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 1)/hyprland.log'
+  # alias hyprlogs='less $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 1)/hyprland.log'
+  alias hyprlog="hyprctl rollinglog -f"
   alias hyprdir='cd $XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/'
   alias hyprstop='uwsm stop'
   alias hyprkill='loginctl terminate-session 1'
   alias hyprnuke='loginctl terminate-user ""'
+
+  hyprdbg() {
+    hyprctl eval "hl.notification.create({ text = \"debug: \" .. tostring($*), timeout = 5000 })"
+  }
 fi

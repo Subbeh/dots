@@ -1,98 +1,98 @@
 hl.config({
-	-- general = {
-	-- 	gaps_in = 5,
-	-- 	gaps_out = 10,
-	-- 	border_size = 1,
-	-- 	layout = "master",
-	-- 	resize_on_border = true,
-	-- 	no_focus_fallback = true,
-	-- },
-	-- decoration = {
-	-- 	rounding = 0,
-	-- 	blur = {
-	-- 		enabled = true,
-	-- 		xray = true,
-	-- 		special = true,
-	-- 		new_optimizations = true,
-	-- 		size = 14,
-	-- 		passes = 4,
-	-- 		brightness = 1,
-	-- 		noise = 0.01,
-	-- 		contrast = 1,
-	-- 		popups = true,
-	-- 		popups_ignorealpha = 0.6,
-	-- 	},
-	-- 	shadow = {
-	-- 		enabled = true,
-	-- 		range = 20,
-	-- 		offset = { 0, 2 },
-	-- 		render_power = 4,
-	-- 		color = "rgba(0000002A)",
-	-- 	},
-	-- },
-	-- animations = {
-	-- 	enabled = true,
-	-- },
-	-- input = {
-	-- 	force_no_accel = false,
-	--
-	-- 	kb_layout = "us",
-	-- 	follow_mouse = 1,
-	-- 	numlock_by_default = true,
-	-- 	repeat_delay = 250,
-	-- 	repeat_rate = 35,
-	-- 	scroll_method = "2fg",
-	-- 	special_fallthrough = true,
-	--
-	-- 	touchpad = {
-	-- 		natural_scroll = false,
-	-- 		disable_while_typing = true,
-	-- 		clickfinger_behavior = true,
-	-- 		scroll_factor = 0.5,
-	-- 	},
-	-- },
-	-- -- device = {
-	-- -- 	name = "tpps/2-elan-trackpoint",
-	-- -- 	accel_profile = "flat",
-	-- -- 	sensitivity = 0.5,
-	-- -- },
-	-- misc = {
-	-- 	-- disable_autoreload = true,
-	-- 	animate_manual_resizes = false,
-	-- 	animate_mouse_windowdragging = false,
-	-- 	enable_swallow = true,
-	-- 	swallow_regex = "(foot|kitty|allacritty|Alacritty)",
-	--
-	-- 	disable_hyprland_logo = true,
-	-- 	force_default_wallpaper = 0,
-	-- 	on_focus_under_fullscreen = 1,
-	-- 	exit_window_retains_fullscreen = true,
-	-- 	allow_session_lock_restore = true,
-	-- 	session_lock_xray = true,
-	-- 	close_special_on_empty = false,
-	--
-	-- 	initial_workspace_tracking = false,
-	-- },
-	-- binds = {
-	-- 	workspace_back_and_forth = true,
-	-- 	allow_workspace_cycles = true,
-	-- 	scroll_event_delay = 0,
-	-- 	movefocus_cycles_fullscreen = false,
-	-- 	hide_special_on_workspace_change = true,
-	-- },
-	-- dwindle = {
-	-- 	preserve_split = true,
-	-- 	smart_split = true,
-	-- 	smart_resizing = true,
-	-- },
-	-- master = {
-	-- 	orientation = "right",
-	-- },
-	-- debug = {
-	-- 	disable_logs = false,
-	-- },
-	-- ecosystem = {
-	-- 	no_update_news = true,
-	-- 	no_donation_nag = true,
-	-- },
+  -- general = {
+  -- 	gaps_in = 5,
+  -- 	gaps_out = 10,
+  -- 	border_size = 1,
+  -- 	layout = "master",
+  -- 	resize_on_border = true,
+  -- 	no_focus_fallback = true,
+  -- },
+  -- decoration = {
+  -- 	rounding = 0,
+  -- 	blur = {
+  -- 		enabled = true,
+  -- 		xray = true,
+  -- 		special = true,
+  -- 		new_optimizations = true,
+  -- 		size = 14,
+  -- 		passes = 4,
+  -- 		brightness = 1,
+  -- 		noise = 0.01,
+  -- 		contrast = 1,
+  -- 		popups = true,
+  -- 		popups_ignorealpha = 0.6,
+  -- 	},
+  -- 	shadow = {
+  -- 		enabled = true,
+  -- 		range = 20,
+  -- 		offset = { 0, 2 },
+  -- 		render_power = 4,
+  -- 		color = "rgba(0000002A)",
+  -- 	},
+  -- },
+  -- animations = {
+  -- 	enabled = true,
+  -- },
+  -- input = {
+  -- 	force_no_accel = false,
+  --
+  -- 	kb_layout = "us",
+  -- 	follow_mouse = 1,
+  -- 	numlock_by_default = true,
+  -- 	repeat_delay = 250,
+  -- 	repeat_rate = 35,
+  -- 	scroll_method = "2fg",
+  -- 	special_fallthrough = true,
+  --
+  -- 	touchpad = {
+  -- 		natural_scroll = false,
+  -- 		disable_while_typing = true,
+  -- 		clickfinger_behavior = true,
+  -- 		scroll_factor = 0.5,
+  -- 	},
+  -- },
+  -- -- device = {
+  -- -- 	name = "tpps/2-elan-trackpoint",
+  -- -- 	accel_profile = "flat",
+  -- -- 	sensitivity = 0.5,
+  -- -- },
+  -- misc = {
+  -- 	-- disable_autoreload = true,
+  -- 	animate_manual_resizes = false,
+  -- 	animate_mouse_windowdragging = false,
+  -- 	enable_swallow = true,
+  -- 	swallow_regex = "(foot|kitty|allacritty|Alacritty)",
+  --
+  -- 	disable_hyprland_logo = true,
+  -- 	force_default_wallpaper = 0,
+  -- 	on_focus_under_fullscreen = 1,
+  -- 	exit_window_retains_fullscreen = true,
+  -- 	allow_session_lock_restore = true,
+  -- 	session_lock_xray = true,
+  -- 	close_special_on_empty = false,
+  --
+  -- 	initial_workspace_tracking = false,
+  -- },
+  -- binds = {
+  -- 	workspace_back_and_forth = true,
+  -- 	allow_workspace_cycles = true,
+  -- 	scroll_event_delay = 0,
+  -- 	movefocus_cycles_fullscreen = false,
+  -- 	hide_special_on_workspace_change = true,
+  -- },
+  -- dwindle = {
+  -- 	preserve_split = true,
+  -- 	smart_split = true,
+  -- 	smart_resizing = true,
+  -- },
+  -- master = {
+  -- 	orientation = "right",
+  -- },
+  debug = {
+    disable_logs = false,
+  },
+  -- ecosystem = {
+  -- 	no_update_news = true,
+  -- 	no_donation_nag = true,
+  -- },
 })
