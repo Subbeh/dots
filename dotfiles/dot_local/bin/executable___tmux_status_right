@@ -3,10 +3,14 @@
 chezmoi=$(__tmux_chezmoi_status)
 git=$(gitmux "$1")
 
-if [[ -n "$chezmoi" && -n "$git" ]]; then
-    echo "$chezmoi #[fg=colour243] ⏽ #[fg=default]$git"
-elif [[ -n "$chezmoi" ]]; then
-    echo "$chezmoi"
-else
-    echo "$git"
-fi
+parts=()
+[[ -n "$chezmoi" ]] && parts+=("$chezmoi")
+[[ -n "$git" ]]    && parts+=("$git")
+
+sep=" #[fg=colour243]⏽#[fg=default] "
+result=""
+for part in "${parts[@]}"; do
+    [[ -n "$result" ]] && result+="$sep"
+    result+="$part"
+done
+echo "$result"
