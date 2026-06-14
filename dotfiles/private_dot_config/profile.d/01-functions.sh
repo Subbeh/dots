@@ -48,3 +48,12 @@ touchr() {
   mkdir -p "$(dirname "$1")" 2>/dev/null
   touch "$1" && ls -l "$1"
 }
+
+# copy with rsync
+cpr() {
+  rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --exclude='.snapshots' --exclude='.vifm-Trash*' "$@"
+}
+# move with rsync
+mvr() {
+  rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --remove-source-files "$@"
+}
