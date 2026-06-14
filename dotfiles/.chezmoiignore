@@ -9,20 +9,21 @@ Library
 {{ end }}
 
 {{ if ne .profile "personal" }}
+.config/chromium-flags.conf
 .config/hypr
+.config/mimeapps.list
 .config/pypr
 .config/rofi
 .config/swaync
+.config/systemd
+.config/user-dirs.dirs
 .config/uwsm
 .config/waybar
 .config/xdg-desktop-portal
-.config/chromium-flags.conf
-.config/mimeapps.list
-.config/user-dirs.dirs
 .config/zsh/.zshrc.d/99-hyprland.zsh
-.local/share/applications
 .local/bin/__hypr*
-.local/bin/__waybar*
 .local/bin/__rofi*
+.local/bin/__waybar*
+.local/share/applications
 .local/share/wallpapers
 {{ end }}

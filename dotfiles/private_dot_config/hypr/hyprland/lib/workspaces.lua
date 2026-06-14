@@ -1,6 +1,6 @@
-local MON_LAPTOP = Monitors.laptop.output
-local EXT1_DESC = Monitors.ext1.output:gsub("^desc:", "")
-local EXT2_DESC = Monitors.ext2.output:gsub("^desc:", "")
+local MON_LAPTOP = Monitors.laptop.name
+local EXT1_DESC  = Monitors.ext1.desc
+local EXT2_DESC  = Monitors.ext2.desc
 
 hl.workspace_rule({ workspace = "1", persistent = true })
 hl.workspace_rule({ workspace = "2", persistent = true })
@@ -70,7 +70,7 @@ end, { locked = true })
 -- lid opened: re-enable laptop screen; monitor.added fires and calls apply_layout
 hl.bind("switch:off:Lid Switch", function()
   lid_closed = false
-  hl.monitor(Monitors.laptop)
+  hl.monitor({ output = Monitors.laptop.name, mode = Monitors.laptop.mode, position = Monitors.laptop.position, scale = Monitors.laptop.scale })
 end, { locked = true })
 
 hl.on("hyprland.start", apply_layout)
