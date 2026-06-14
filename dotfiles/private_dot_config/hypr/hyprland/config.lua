@@ -1,98 +1,121 @@
 hl.config({
-  -- general = {
-  -- 	gaps_in = 5,
-  -- 	gaps_out = 10,
-  -- 	border_size = 1,
-  -- 	layout = "master",
-  -- 	resize_on_border = true,
-  -- 	no_focus_fallback = true,
-  -- },
-  -- decoration = {
-  -- 	rounding = 0,
-  -- 	blur = {
-  -- 		enabled = true,
-  -- 		xray = true,
-  -- 		special = true,
-  -- 		new_optimizations = true,
-  -- 		size = 14,
-  -- 		passes = 4,
-  -- 		brightness = 1,
-  -- 		noise = 0.01,
-  -- 		contrast = 1,
-  -- 		popups = true,
-  -- 		popups_ignorealpha = 0.6,
-  -- 	},
-  -- 	shadow = {
-  -- 		enabled = true,
-  -- 		range = 20,
-  -- 		offset = { 0, 2 },
-  -- 		render_power = 4,
-  -- 		color = "rgba(0000002A)",
-  -- 	},
-  -- },
-  -- animations = {
-  -- 	enabled = true,
-  -- },
-  -- input = {
-  -- 	force_no_accel = false,
-  --
-  -- 	kb_layout = "us",
-  -- 	follow_mouse = 1,
-  -- 	numlock_by_default = true,
-  -- 	repeat_delay = 250,
-  -- 	repeat_rate = 35,
-  -- 	scroll_method = "2fg",
-  -- 	special_fallthrough = true,
-  --
-  -- 	touchpad = {
-  -- 		natural_scroll = false,
-  -- 		disable_while_typing = true,
-  -- 		clickfinger_behavior = true,
-  -- 		scroll_factor = 0.5,
-  -- 	},
-  -- },
-  -- -- device = {
-  -- -- 	name = "tpps/2-elan-trackpoint",
-  -- -- 	accel_profile = "flat",
-  -- -- 	sensitivity = 0.5,
-  -- -- },
-  -- misc = {
-  -- 	-- disable_autoreload = true,
-  -- 	animate_manual_resizes = false,
-  -- 	animate_mouse_windowdragging = false,
-  -- 	enable_swallow = true,
-  -- 	swallow_regex = "(foot|kitty|allacritty|Alacritty)",
-  --
-  -- 	disable_hyprland_logo = true,
-  -- 	force_default_wallpaper = 0,
-  -- 	on_focus_under_fullscreen = 1,
-  -- 	exit_window_retains_fullscreen = true,
-  -- 	allow_session_lock_restore = true,
-  -- 	session_lock_xray = true,
-  -- 	close_special_on_empty = false,
-  --
-  -- 	initial_workspace_tracking = false,
-  -- },
-  -- binds = {
-  -- 	workspace_back_and_forth = true,
-  -- 	allow_workspace_cycles = true,
-  -- 	scroll_event_delay = 0,
-  -- 	movefocus_cycles_fullscreen = false,
-  -- 	hide_special_on_workspace_change = true,
-  -- },
-  -- dwindle = {
-  -- 	preserve_split = true,
-  -- 	smart_split = true,
-  -- 	smart_resizing = true,
-  -- },
-  -- master = {
-  -- 	orientation = "right",
-  -- },
+  general = {
+    gaps_in = 5,
+    gaps_out = 10,
+    layout = "master",
+    resize_on_border = true,
+    no_focus_fallback = true,
+  },
+
+  decoration = {
+    dim_inactive = true,
+    dim_strength = 0.2,
+    shadow = {
+      enabled = true,
+      range = 4,
+      render_power = 3,
+    },
+    blur = {
+      enabled = true,
+      size = 3,
+      passes = 1,
+      vibrancy = 0.1696,
+    },
+  },
+
+  input = {
+    numlock_by_default = true,
+    repeat_delay = 250,
+    repeat_rate = 35,
+    special_fallthrough = true,
+  },
+
+  gestures = {
+    workspace_swipe_invert = false,
+    workspace_swipe_cancel_ratio = 0.1,
+    workspace_swipe_create_new = false,
+  },
+
+  misc = {
+    disable_hyprland_logo = true,
+    disable_splash_rendering = true,
+    force_default_wallpaper = 0,
+    enable_swallow = true,
+    swallow_regex = "(kitty)",
+    allow_session_lock_restore = true,
+    close_special_on_empty = false,
+    on_focus_under_fullscreen = 1,
+    exit_window_retains_fullscreen = true,
+    initial_workspace_tracking = 0,
+    key_press_enables_dpms = true,
+  },
+
+  binds = {
+    scroll_event_delay = 0,
+    workspace_back_and_forth = true,
+    hide_special_on_workspace_change = true,
+    allow_workspace_cycles = true,
+  },
+
+  ecosystem = {
+    no_update_news = true,
+    no_donation_nag = true,
+  },
+
   debug = {
     disable_logs = false,
+    error_position = 1,
   },
-  -- ecosystem = {
-  -- 	no_update_news = true,
-  -- 	no_donation_nag = true,
-  -- },
+
+  dwindle = {
+    preserve_split = true,
+    smart_split = true,
+  },
+
+  master = {
+    mfact = 0.6,
+    orientation = "right",
+  },
 })
+
+hl.device({
+  name = "tpps/2-elan-trackpoint",
+  accel_profile = "flat",
+  sensitivity = 0.5,
+})
+
+hl.gesture({
+  fingers = 3,
+  direction = "horizontal",
+  action = "workspace",
+})
+
+-- ANIMATIONS
+hl.config({
+  animations = {
+    enabled = true,
+  },
+})
+
+hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
+hl.curve("md3_standard", { type = "bezier", points = { { 0.2, 0 }, { 0, 0.1 } } })
+hl.curve("md3_decel", { type = "bezier", points = { { 0.05, 0.7 }, { 0.1, 1 } } })
+hl.curve("md3_accel", { type = "bezier", points = { { 0.3, 0 }, { 0.8, 0.15 } } })
+hl.curve("menu_decel", { type = "bezier", points = { { 0.1, 1 }, { 0, 1 } } })
+hl.curve("menu_accel", { type = "bezier", points = { { 0.38, 0.04 }, { 1, 0.07 } } })
+
+-- hl.animation({ leaf = "windows", enabled = true, speed = 3, bezier = "md3_decel", style = "popin 60%" })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 7, bezier = "md3_decel", style = "popin 60%" })
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 7, bezier = "md3_accel", style = "popin 60%" })
+-- hl.animation({ leaf = "windowsMove", enabled = true, speed = 6, bezier = "md3_standard", style = "popin 60%" })
+-- hl.animation({ leaf = "border", enabled = true, speed = 10, bezier = "linear" })
+-- hl.animation({ leaf = "fade", enabled = true, speed = 3, bezier = "md3_decel" })
+-- hl.animation({ leaf = "fadeIn", enabled = true, speed = 4, bezier = "md3_decel" })
+-- hl.animation({ leaf = "fadeOut", enabled = true, speed = 4, bezier = "md3_accel" })
+-- hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 5, bezier = "md3_accel" })
+-- hl.animation({ leaf = "fadeDim", enabled = true, speed = 3, bezier = "linear" })
+-- hl.animation({ leaf = "fadeShadow", enabled = true, speed = 3, bezier = "linear" })
+-- hl.animation({ leaf = "workspaces", enabled = true, speed = 7, bezier = "menu_decel", style = "slide" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 8, bezier = "md3_decel", style = "fade" })
+-- hl.animation({ leaf = "layersIn", enabled = true, speed = 7, bezier = "md3_decel", style = "slide top" })
+-- hl.animation({ leaf = "layersOut", enabled = true, speed = 3, bezier = "md3_accel", style = "slide bottom" })

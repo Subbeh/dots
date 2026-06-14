@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # open dropterm
-__hypr_dropterm_launcher
+hyprctl eval 'hl.dispatch(Dropterm())'
 while ! tmux list-sessions -F \#S | grep -q dropterm; do sleep 0; done
 tmux set-option -t dropterm monitor-activity off
 

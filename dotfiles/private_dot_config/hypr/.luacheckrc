@@ -1,4 +1,3 @@
--- Global objects
 globals = {
-	"hl",
+  "hl",
 }
