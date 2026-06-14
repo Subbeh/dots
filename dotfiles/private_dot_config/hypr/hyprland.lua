@@ -3,8 +3,8 @@ fileManager = "thunar"
 
 require("hyprland.config")
 require("hyprland.exec")
+require("hyprland.lib.dropterm")
 require("hyprland.binds")
--- require("hyprland.lib.dropterm")
 
 -- stylua: ignore start
 hl.monitor({ output = "eDP-1",                                         mode = "1920x1200", position = "0x0",        scale = 1 })

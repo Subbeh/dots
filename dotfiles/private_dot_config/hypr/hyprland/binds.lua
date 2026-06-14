@@ -47,7 +47,7 @@ hl.bind("SUPER + S", function ()
 end)
 
 --- toggle dropterm
--- hl.bind("F12", Dropterm())
+hl.bind("F12", Dropterm())
 
 -- PLUGINS
 
