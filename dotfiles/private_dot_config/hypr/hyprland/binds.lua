@@ -1,3 +1,5 @@
+require("hyprland.lib.waybar")
+
 local _toggle_hyprexpo
 local _toggle_special
 
@@ -39,6 +41,11 @@ for i = 1, 9 do
   hl.bind("SUPER + " .. i,         hl.dsp.focus({ workspace = i }))
   hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
 end
+
+-- WAYBAR
+hl.bind("SUPER + CTRL + 1", function() StartWaybar(Monitors.laptop.name) end)
+hl.bind("SUPER + CTRL + 2", function() StartWaybar(Monitors.ext1.desc) end)
+hl.bind("SUPER + CTRL + 3", function() StartWaybar(Monitors.ext2.desc) end)
 -- stylua: ignore end
 
 -- FUNCTIONS
