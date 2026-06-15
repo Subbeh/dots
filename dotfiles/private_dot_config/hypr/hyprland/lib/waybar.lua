@@ -1,5 +1,3 @@
-local Utils = require("hyprland.lib.utils")
-
 local CONFIG_PATH = os.getenv("HOME") .. "/.cache/waybar/config"
 local CONFIG_TMPL = [[
 [
@@ -21,8 +19,6 @@ local CONFIG_TMPL = [[
 function StartWaybar(monitor)
   for _, mon in ipairs(hl.get_monitors()) do
     if monitor == mon.name or monitor == mon.description then
-      Utils.debug(mon.name)
-
       os.execute("mkdir -p " .. os.getenv("HOME") .. "/.cache/waybar")
       local f = io.open(CONFIG_PATH, "w")
       if f then

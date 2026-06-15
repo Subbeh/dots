@@ -1,8 +1,3 @@
-require("hyprland.lib.waybar")
-
-local _toggle_hyprexpo
-local _toggle_special
-
 -- stylua: ignore start
 -- SYSTEM
 hl.bind("SUPER + SHIFT + R",        hl.dsp.exec_cmd("hyprctl reload"))
@@ -34,8 +29,8 @@ hl.bind("SUPER + code:35",          hl.dsp.window.swap({ prev = 1 }))
 -- WORKSPACES
 hl.bind("SUPER + TAB",              hl.dsp.focus({ workspace = "previous" }))
 hl.bind("ALT + TAB",                hl.dsp.workspace.toggle_special("term"))
-hl.bind("SUPER + SHIFT + TAB",      function() _toggle_hyprexpo() end)
-hl.bind("SUPER + S",                function() _toggle_special() end)
+hl.bind("SUPER + SHIFT + TAB",      function() Func.toggle_hyprexpo() end)
+hl.bind("SUPER + S",                function() Func.toggle_special() end)
 hl.bind("F12",                      Dropterm())
 hl.bind("SUPER + CTRL + H",         hl.dsp.focus({ workspace = "e-1" }))
 hl.bind("SUPER + CTRL + L",         hl.dsp.focus({ workspace = "e+1" }))
@@ -50,25 +45,8 @@ end
 hl.bind("SUPER + CTRL + 1",         function() StartWaybar(Monitors.laptop.name) end)
 hl.bind("SUPER + CTRL + 2",         function() StartWaybar(Monitors.ext1.desc) end)
 hl.bind("SUPER + CTRL + 3",         function() StartWaybar(Monitors.ext2.desc) end)
--- stylua: ignore end
 
--- FUNCTIONS
---- hyprexpo
-_toggle_hyprexpo = function()
-  if hl.plugin and hl.plugin.hyprexpo then
-    hl.plugin.hyprexpo.expo("toggle")
-  else
-    hl.dispatch(hl.dsp.exec_cmd("hyprctl dispatch \"hl.dsp.exec_raw('hyprexpo:expo toggle')\""))
-  end
-end
-
---- toggle special
-_toggle_special = function()
-  if hl.get_active_special_workspace() then
-    if hl.get_active_special_workspace().name == "special:term" then
-      hl.dispatch(hl.dsp.window.move({ workspace = hl.get_active_workspace().name }))
-    end
-  else
-    hl.dispatch(hl.dsp.window.move({ workspace = "special:term" }))
-  end
-end
+-- GESTURES
+hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
+hl.gesture({ fingers = 3, direction = "up",         action = function() Func.toggle_hyprexpo("enable") end })
+hl.gesture({ fingers = 3, direction = "down",       action = function() Func.toggle_hyprexpo("cancel") end })

@@ -84,12 +84,6 @@ hl.device({
   sensitivity = 0.5,
 })
 
-hl.gesture({
-  fingers = 3,
-  direction = "horizontal",
-  action = "workspace",
-})
-
 -- ANIMATIONS
 hl.config({
   animations = {
