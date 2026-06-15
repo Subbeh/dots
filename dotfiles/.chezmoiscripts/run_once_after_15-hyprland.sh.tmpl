@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 {{ if eq .chezmoi.os "linux" -}}
+# Start systemd services
+systemctl --user enable --now waybar.service
+systemctl --user enable --now hyprpaper.service
+
+# Install plugins
 hyprpm add https://github.com/sandwichfarm/hyprexpo
 hyprpm enable hyprexpo
 hyprpm reload

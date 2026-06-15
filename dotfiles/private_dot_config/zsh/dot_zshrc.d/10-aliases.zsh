@@ -3,6 +3,7 @@
 # global aliases
 alias -g C='| cat'
 alias -g B='| bat'
+alias -g E='2>/dev/null'
 alias -g G='| grep -i --color'
 alias -g H='--help'
 alias -g J='| jq -r'

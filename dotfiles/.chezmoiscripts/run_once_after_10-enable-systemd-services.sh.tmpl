@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# Start systemd services
-
-{{ if eq .chezmoi.os "linux" -}}
-systemctl --user enable --now waybar.service
-{{ end -}}
