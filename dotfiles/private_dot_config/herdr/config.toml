@@ -1,0 +1,10 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+s"
+
+[experimental]
+pane_history = false
+
+[theme]
+name = "terminal"
