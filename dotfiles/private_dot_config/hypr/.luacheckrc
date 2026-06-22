@@ -1,3 +1,2 @@
-globals = {
-  "hl",
-}
+globals = { "hl" }
+ignore = { "113" }

@@ -5,9 +5,11 @@ set -e
 
 # Start tmux daemon if not already running
 if ! systemctl --user is-active --quiet tmux 2>/dev/null; then
-    echo "Starting tmux daemon with systemd-run..."
-    systemd-run --user --remain-after-exit -u tmux -- tmux new-session -d -s _daemon 'sleep infinity'
-    sleep 2  # Give daemon time to start
+  echo "Starting tmux daemon with systemd-run..."
+  systemd-run --user --remain-after-exit -u tmux \
+    --property="ExecStop=/usr/bin/tmux kill-server" \
+    -- tmux new-session -d -s _daemon 'sleep infinity'
+  sleep 2 # Give daemon time to start
 fi
 
 # Function to start a session if it doesn't exist
@@ -30,4 +32,3 @@ start_session "dropterm"
 # start_session "monitoring"
 
 echo "All tmux sessions started successfully"
-
