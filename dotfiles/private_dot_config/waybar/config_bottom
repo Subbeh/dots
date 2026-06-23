@@ -15,6 +15,7 @@
     "custom/sep",
     "custom/borgmatic",
     "custom/syncthing",
+    "custom/chezmoi",
     "custom/updates"
   ],
   "modules-center": [

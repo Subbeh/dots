@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-chezmoi=$(__tmux_chezmoi_status)
+chezmoi=$(__chezmoi_status tmux)
 git=$(gitmux "$1")
 
 parts=()
 [[ -n "$chezmoi" ]] && parts+=("$chezmoi")
-[[ -n "$git" ]]    && parts+=("$git")
+[[ -n "$git" ]] && parts+=("$git")
 
 sep=" #[fg=colour243]⏽#[fg=default] "
 result=""
 for part in "${parts[@]}"; do
-    [[ -n "$result" ]] && result+="$sep"
-    result+="$part"
+  [[ -n "$result" ]] && result+="$sep"
+  result+="$part"
 done
 echo "$result"

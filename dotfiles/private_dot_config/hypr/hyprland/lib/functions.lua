@@ -10,7 +10,6 @@ Func.toggle_hyprexpo = function(action)
   end
 end
 
---- toggle special
 Func.toggle_special = function()
   if hl.get_active_special_workspace() then
     if hl.get_active_special_workspace().name == "special:term" then
@@ -19,6 +18,11 @@ Func.toggle_special = function()
   else
     hl.dispatch(hl.dsp.window.move({ workspace = "special:term" }))
   end
+end
+
+Func.reload_layout = function()
+  ReloadWaybar()
+  hl.dispatch(hl.dsp.focus({ workspace = "2" }))
 end
 
 return Func

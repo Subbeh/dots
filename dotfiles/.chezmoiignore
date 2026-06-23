@@ -1,4 +1,5 @@
 {{ if ne .profile "work" }}
+.claude/settings.json
 .config/profile.d/05-work.sh
 .config/k9s/work/
 .config/git/config-work.inc

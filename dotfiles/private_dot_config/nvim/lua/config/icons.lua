@@ -49,7 +49,6 @@ return {
     Diff = " ",
     Repo = " ",
     Octoface = " ",
-    Copilot = " ",
     Branch = "",
     PR = "󰓂",
   },

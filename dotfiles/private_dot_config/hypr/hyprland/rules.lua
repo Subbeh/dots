@@ -1,3 +1,37 @@
+-- WORKSPACE RULES
 hl.workspace_rule({ workspace = "1", persistent = true, monitor = "desc:" .. Monitors.ext1.desc })
 hl.workspace_rule({ workspace = "2", persistent = true, monitor = "desc:" .. Monitors.ext2.desc, default = true })
 hl.workspace_rule({ workspace = "3", persistent = true, monitor = Monitors.laptop.name })
+
+-- WINDOW RULES
+hl.window_rule({
+  -- Fix some dragging issues with XWayland
+  name = "fix-xwayland-drags",
+  match = {
+    class = "^$",
+    title = "^$",
+    xwayland = true,
+    float = true,
+    fullscreen = false,
+    pin = false,
+  },
+
+  no_focus = true,
+})
+hl.window_rule({
+  name = "float-pavucontrol",
+  match = { class = "org.pulseaudio.pavucontrol" },
+  float = true,
+  size = "900 900",
+})
+hl.window_rule({
+  name = "float-thunar",
+  match = { class = "Thunar" },
+  float = true,
+  size = "1100 900",
+})
+hl.window_rule({
+  name = "fix-pinentry-focus",
+  match = { class = "(pinentry-)(.*)" },
+  stay_focused = true,
+})

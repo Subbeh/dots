@@ -151,6 +151,10 @@ window#waybar.bottom :first-child {
 
 /* BORGMATIC */
 
+#custom-borgmatic {
+  padding: 0 5px;
+}
+
 #custom-borgmatic.running {
   color: @orange;
 }
@@ -169,6 +173,20 @@ window#waybar.bottom :first-child {
 
 #custom-borgmatic.unknown {
   color: @white;
+}
+
+/* CHEZMOI */
+
+#custom-chezmoi {
+  padding: 0 5px;
+}
+
+#custom-chezmoi.clean {
+  color: @green;
+}
+
+#custom-chezmoi.dirty {
+  color: @orange;
 }
 
 /* KUBERNETES */

@@ -15,13 +15,21 @@ end)
 
 -- Monitors
 hl.on("monitor.added", function()
-  ReloadWaybar()
-  hl.dispatch(hl.dsp.focus({ workspace = "2" }))
+  Func.reload_layout()
 end)
 
 hl.on("monitor.removed", function()
-  ReloadWaybar()
-  hl.dispatch(hl.dsp.focus({ workspace = "2" }))
+  Func.reload_layout()
+end)
+
+hl.bind("switch:on:Lid Switch", function()
+  hl.monitor({ output = "eDP-1", disabled = true })
+  Func.reload_layout()
+end)
+
+hl.bind("switch:off:Lid Switch", function()
+  hl.monitor({ output = "eDP-1", disabled = false })
+  Func.reload_layout()
 end)
 
 -- Windows

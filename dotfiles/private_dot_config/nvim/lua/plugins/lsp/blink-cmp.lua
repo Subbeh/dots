@@ -10,7 +10,6 @@ return {
     { "folke/lazydev.nvim" },
     { "rafamadriz/friendly-snippets" },
     { "brenoprata10/nvim-highlight-colors" },
-    { "fang2hou/blink-copilot" },
   },
 
   opts = {
@@ -25,8 +24,8 @@ return {
         -- nvim-cmp style menu
         draw = {
           columns = {
-            { "label",     "label_description", gap = 1 },
-            { "kind_icon", "kind",              gap = 1 },
+            { "label", "label_description", gap = 1 },
+            { "kind_icon", "kind", gap = 1 },
           },
           components = {
             -- customize the drawing of kind icons
@@ -69,14 +68,8 @@ return {
     },
 
     sources = {
-      default = { "copilot", "lsp", "lazydev", "path", "snippets", "buffer" },
+      default = { "lsp", "lazydev", "path", "snippets", "buffer" },
       providers = {
-        copilot = {
-          name = "copilot",
-          module = "blink-copilot",
-          score_offset = 100,
-          async = true,
-        },
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
