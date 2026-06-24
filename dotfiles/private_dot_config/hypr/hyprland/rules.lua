@@ -15,9 +15,20 @@ hl.window_rule({
     fullscreen = false,
     pin = false,
   },
-
   no_focus = true,
 })
+hl.window_rule({
+  name = "fix-xwayland-no-focus",
+  match = { xwayland = true },
+  no_focus = true,
+})
+hl.window_rule({
+  name = "fix-xwayland-float",
+  match = { xwayland = true },
+  float = true,
+})
+
+--- Apps
 hl.window_rule({
   name = "float-pavucontrol",
   match = { class = "org.pulseaudio.pavucontrol" },
@@ -34,4 +45,32 @@ hl.window_rule({
   name = "fix-pinentry-focus",
   match = { class = "(pinentry-)(.*)" },
   stay_focused = true,
+})
+
+--- File pickers floating & centered
+hl.window_rule({
+  name = "float-file-pickers",
+  match = { title = "^(Open File|Open Folder|Open|Save|Save As|Export|Import|Choose File|Rename|script-fu|kdenlive|brave)$" },
+  float = true,
+  center = true,
+})
+
+--- xdg-desktop-portal dialogs
+hl.window_rule({
+  name = "float-xdg-portal",
+  match = { class = "^(xdg-desktop-portal-gtk|xdg-desktop-portal-hyprland)$" },
+  float = true,
+  center = true,
+})
+hl.window_rule({
+  name = "no-border-xdg-portal",
+  match = { class = "^(xdg-desktop-portal-gtk)$" },
+  border_size = 0,
+})
+
+-- LAYERS
+hl.layer_rule({
+  name = "rofi-anim",
+  match = { namespace = "rofi" },
+  animation = "popin 90%",
 })
