@@ -2,5 +2,4 @@
 .direnv/
 .DS_Store/
 __pycache__/
-.claude/
-CLAUDE.md
+**/.claude/settings.local.json
