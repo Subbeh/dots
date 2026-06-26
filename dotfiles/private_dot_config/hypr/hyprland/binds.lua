@@ -20,7 +20,7 @@ hl.bind("SUPER + L",                      hl.dsp.focus({ direction = "right" }))
 hl.bind("SUPER + K",                      hl.dsp.focus({ direction = "up" }))
 hl.bind("SUPER + J",                      hl.dsp.focus({ direction = "down" }))
 hl.bind("SUPER + mouse:272",              hl.dsp.window.drag(),                                              { mouse = true })
-hl.bind("SUPER + mouse:273",              hl.dsp.window.resize(),                                            { mouse = true })
+hl.bind("SUPER + SHIFT + mouse:272",      hl.dsp.window.resize(),                                            { mouse = true })
 
 
 --- swap windows

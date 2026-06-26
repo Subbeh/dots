@@ -47,6 +47,7 @@ alias lip='curl -sw "\n" -4 ifconfig.me'
 alias sdiff='diff --color=always --side-by-side'
 alias ndiff='nvim -d'
 alias ungron="gron --ungron"
+alias icat="kitten icat"
 
 # ssh
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'

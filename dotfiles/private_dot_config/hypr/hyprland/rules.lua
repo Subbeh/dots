@@ -36,6 +36,14 @@ hl.window_rule({
   size = "900 900",
 })
 hl.window_rule({
+  name = "float-firefox-profiles",
+  match = {
+    class = "firefox",
+    title = "^(Firefox - Choose User Profile)",
+  },
+  float = true,
+})
+hl.window_rule({
   name = "float-thunar",
   match = { class = "Thunar" },
   float = true,
@@ -50,7 +58,7 @@ hl.window_rule({
 --- File pickers floating & centered
 hl.window_rule({
   name = "float-file-pickers",
-  match = { title = "^(Open File|Open Folder|Open|Save|Save As|Export|Import|Choose File|Rename|script-fu|kdenlive|brave)$" },
+  match = { title = "^(Open File|Open Folder|Open|Save|Save As|Export|Import|Choose File|Rename)$" },
   float = true,
   center = true,
 })
