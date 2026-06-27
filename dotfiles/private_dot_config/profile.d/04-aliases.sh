@@ -74,6 +74,7 @@ alias grs='git remote show'
 alias glo='git log --pretty="oneline"'
 alias glol='git log --graph --oneline --decorate'
 alias lg='lazygit'
+alias t='task'
 
 # misc
 alias dat='date +%Y-%m-%d'
@@ -100,6 +101,7 @@ if [ "$PROFILE_OS" = "darwin" ]; then
   alias xp="pwd | tr -d '\n' | pbcopy"
 
   alias bu="brew update && brew upgrade --quiet --force"
+  alias t="/opt/homebrew/Cellar/task/*/bin/task"
 
 elif [ "$PROFILE_OS" = "linux" ]; then
   # clipdboard

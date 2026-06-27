@@ -47,8 +47,8 @@ function zvm_after_init() {
   bindkey '^e' end-of-line           # Ctrl-e for end of line
   bindkey '\ep' push-line            # Alt-p to push current line
   bindkey '^F' fzf-file-widget       # Ctrl-F for fzf file widget
-  bindkey '\eh' dirhistory_zle_dirhistory_back &> /dev/null
-  bindkey '\el' dirhistory_zle_dirhistory_future &> /dev/null
+  bindkey '\ej' dirhistory_zle_dirhistory_back &> /dev/null
+  bindkey '\ek' dirhistory_zle_dirhistory_future &> /dev/null
 }
 
 # Finally, make sure the terminal is in application mode, when zle is

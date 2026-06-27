@@ -34,7 +34,7 @@ zi light zsh-users/zsh-syntax-highlighting
 zi light zsh-users/zsh-completions
 zi light zsh-users/zsh-autosuggestions
 zi light zsh-users/zsh-history-substring-search
-zi ice lucid wait'0'
+# zi ice lucid wait'0'
 # zi light joshskidmore/zsh-fzf-history-search
 zi light Aloxaf/fzf-tab
 zi light hlissner/zsh-autopair
