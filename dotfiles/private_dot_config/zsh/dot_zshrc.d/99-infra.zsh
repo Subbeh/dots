@@ -14,7 +14,12 @@ _chkcmd aws-sso-util && eval "$(_AWS_SSO_UTIL_COMPLETE=zsh_source aws-sso-util)"
 if [[ -n "$HOMELAB_DIR" && "$PWD" == "$HOMELAB_DIR"* ]] && _chkcmd mise; then
   eval "$(mise activate zsh)"
 fi
-_chkcmd task && eval "$(task --completion zsh)"
+# go-task completion — binary is `go-task` on Arch, `task` (Homebrew) on macOS
+if _chkcmd go-task; then
+  eval "$(go-task --completion zsh)"
+elif [ "$PROFILE_OS" = darwin ] && _chkcmd task; then
+  eval "$(task --completion zsh)"
+fi
 
 # histfile hook for Zsh history switching
 # default history file
