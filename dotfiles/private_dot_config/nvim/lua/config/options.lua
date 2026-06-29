@@ -64,7 +64,7 @@ opt.listchars = {
 --  folding
 opt.foldcolumn = "0"                        --  Width of fold column
 opt.foldmethod = "expr"                     --  Use treesitter for folding
-opt.foldexpr = "nvim_treesitter#foldexpr()" --  Expression for fold levels
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" --  Expression for fold levels
 opt.foldenable = false                      --  Start with folds open
 opt.foldtext = ""                           --  No custom fold text
 opt.foldnestmax = 3                         --  Maximum fold nesting

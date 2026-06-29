@@ -1,8 +1,8 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter", -- TODO: update ensure_installed
-    branch = "master",
-    enabled = false,
+    branch = "main",
+    -- enabled = false,
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-textobjects" },
       { "LiadOz/nvim-dap-repl-highlights" },
@@ -128,9 +128,6 @@ return {
 
       vim.filetype.add({
         extension = { rasi = "rasi" },
-        pattern = {
-          [".*/hypr/.*%.conf"] = "hyprlang",
-        },
       })
 
       require("nvim-dap-repl-highlights").setup() -- must be setup before nvim-treesitter
